@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 
 logger.debug('middleware complete. building routes...');
 
+// Add paths and routes here.
 app.get('/', render('test'));
 
 logger.debug('routes complete. starting server...');
