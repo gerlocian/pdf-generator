@@ -1,25 +1,31 @@
 'use strict';
 
+import bodyParser from 'body-parser';
 import express from 'express';
-import fs from 'fs';
-import mustache from 'mustache';
-import path from 'path';
-import pdf from 'html-pdf';
+import * as config from './utils/config';
+import { getLogger } from './utils/loggers';
+import { render } from './utils/renderer';
+
+const logger = getLogger('server');
+
+logger.profile('Server build time');
+logger.debug('imports complete. building app...');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    fs.readFile(path.resolve(__dirname, 'templates', 'test.html'), (e, d) => {
-        if (e) throw e; // ideally we do something better with this.
+logger.debug('app complete. building middleware...');
 
-        let render = mustache.render(d.toString(), { test: "Hello World!" });
-        pdf.create(render).toBuffer((err, buffer) => {
-            res.header('Content-Type', 'application/pdf');
-            res.send(buffer);
-        });
-    });
-});
+app.use(bodyParser.json());
 
-app.listen(3000, () => {
-    console.log('Listening on port 3000...');
+logger.debug('middleware complete. building routes...');
+
+app.get('/', render('test'));
+
+logger.debug('routes complete. starting server...');
+logger.debug(`server port set to '${config.SERVER_PORT}'`);
+
+app.listen(config.SERVER_PORT, () => {
+    logger.info('Server started.');
+    logger.info(`Listening on port ${config.SERVER_PORT}...`);
+    logger.profile('Server build time');
 });
