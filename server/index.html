@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Generator</title>
+</head>
+<body>
+
+    <h1>PDF Generator</h1>
+
+    <h2>Getting Started</h2>
+
+    <p>
+        Basically, get yourself a plugin or something that allows you to make post requests. I personally use Postman or
+        curl. If you are seeing this, then you have already started the server with "npm start".
+    </p>
+    <p>
+        With the server running, make a post request to the server to any of the post endpoints. Look in index.js for
+        the "app.post" blocks to know the valid ones.
+    </p>
+    <p>
+        To send data to the templates, look in the template you want to render and look for the replacement variables.
+        Just add a JSON to the string to the request and add that variable to the json. For example:
+    </p>
+
+    <code>
+        {
+            foo: "My foo value"
+        }
+    </code>
+
+    <p>
+        This will replace {{ foo }} with "My foo value".
+    </p>
+
+    <h2>Example Call for Test</h2>
+
+    <code>
+        curl -H "Content-Type: application/json" -X POST -d '{ "title": "My PDF title" }' http://localhost:3000/test > ~/Test.pdf; open ~/Test.pdf
+    </code>
+
+    <p>
+        Change the title by editing the above command and replacing "My PDF title" with anything you want.
+    </p>
+
+</body>
+</html>

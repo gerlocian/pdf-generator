@@ -2,6 +2,7 @@
 
 import bodyParser from 'body-parser';
 import express from 'express';
+import path from 'path';
 import * as config from './utils/config';
 import { getLogger } from './utils/loggers';
 import { render } from './utils/renderer';
@@ -20,7 +21,11 @@ app.use(bodyParser.json());
 logger.debug('middleware complete. building routes...');
 
 // Add paths and routes here.
-app.get('/', render('test'));
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
+});
+
+app.post('/test', render('test'));
 
 logger.debug('routes complete. starting server...');
 logger.debug(`server port set to '${config.SERVER_PORT}'`);
