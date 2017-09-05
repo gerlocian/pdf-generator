@@ -5,7 +5,7 @@ import express from 'express';
 import path from 'path';
 import * as config from './utils/config';
 import { getLogger } from './utils/loggers';
-import { render } from './utils/renderer';
+import { render, renderHead } from './utils/renderer';
 
 const logger = getLogger('server');
 
@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/test', render('test'));
+app.head('/test', renderHead('test'));
 
 logger.debug('routes complete. starting server...');
 logger.debug(`server port set to '${config.SERVER_PORT}'`);

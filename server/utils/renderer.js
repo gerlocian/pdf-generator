@@ -29,9 +29,29 @@ export function render (templateName, options=pdfOptions) {
     return function (req, res) {
         logger.debug(`Rendering ${templateName}`);
         let render = mustache.render(template, req.body);
+
         pdf.create(render, options).toBuffer((err, buffer) => {
             res.header('Content-Type', 'application/pdf');
             res.send(buffer);
+        });
+    }
+}
+
+// Diagnostic url for testing to response and not downloading the pdf.
+export function renderHead (templateName, options=pdfOptions) {
+    logger.debug(`Preparing template "${templateName}"...`);
+    let response = fs.readFileSync(path.resolve(__dirname, '..', 'templates', `${templateName}.html`));
+    let template = response.toString();
+    mustache.parse(template);
+    logger.debug(`"${templateName}" prepared!`)
+
+    return function (req, res) {
+        logger.debug(`Rendering ${templateName}`);
+        let render = mustache.render(template, {title: 'Hello World!'});
+
+        pdf.create(render, options).toBuffer((err, buffer) => {
+            logger.debug('Headers being sent');
+            res.send('OK');
         });
     }
 }
