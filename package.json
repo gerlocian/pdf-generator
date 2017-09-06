@@ -21,7 +21,6 @@
     "babel-preset-env": "^1.6.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "html-pdf": "^2.1.0",
     "mustache": "^2.3.0",
     "phantom-html-to-pdf": "^0.5.4",
     "phantomjs": "^2.1.7",
