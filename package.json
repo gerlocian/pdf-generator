@@ -23,6 +23,8 @@
     "express": "^4.15.4",
     "html-pdf": "^2.1.0",
     "mustache": "^2.3.0",
+    "phantom-html-to-pdf": "^0.5.4",
+    "phantomjs": "^2.1.7",
     "winston": "^2.3.1"
   }
 }
